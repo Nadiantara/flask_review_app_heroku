@@ -1,7 +1,7 @@
 import numpy as np
 from datetime import datetime,timedelta, date
-# check your pickle compability, perhaps its pickle not pickle5
-import pickle5 as pickle
+# check your pickle compability, perhaps its pickle not pickle
+import pickle as pickle
 import pandas as pd
 
 import seaborn as sns

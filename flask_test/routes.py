@@ -5,7 +5,7 @@ from flask import render_template, url_for, flash, redirect, request, make_respo
 from altair import Chart, X, Y, Axis, Data, DataFormat
 from google_play_scraper import app as app_info
 import pandas as pd
-import pickle5 as pickle
+import pickle as pickle
 from scipy.stats import zscore
 import scipy.stats as stats
 import csv

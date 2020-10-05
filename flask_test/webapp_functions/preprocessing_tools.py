@@ -19,7 +19,7 @@ from google_play_scraper import app, reviews, reviews_all, Sort
 # for NLP preprocessing
 import nltk
 import spacy
-import pickle5 as pickle
+import pickle as pickle
 import gensim 
 # for main model
 from sklearn.model_selection import train_test_split
