@@ -195,12 +195,16 @@ def plot_totalreview_google_version(dataframe):
   graphJSON = json.dumps(plot, cls=plotly.utils.PlotlyJSONEncoder)
   return graphJSON
 
-def make_plots(table_name):
+def make_plots(table_name, conn):
   #connect to SQLite database
-  conn = db.engine
-  # fetch dataset
-  fetched_df = pd.read_sql_table(table_name, conn)
   
+  # fetch dataset
+  table_name=table_name
+  if table_name:
+    try:
+        fetched_df = pd.read_sql_table(table_name, conn)
+    except: 
+        return 404
   # preprocess
   processed_df = change_google_dtype(fetched_df)
 

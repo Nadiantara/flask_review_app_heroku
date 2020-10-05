@@ -68,9 +68,9 @@ conn.commit()
 # 	phone TEXT NOT NULL UNIQUE
 # );"""
 # )
-c.execute("DROP TABLE 'com.ibuild.idothabit_us'")
-cur_result = c.fetchone()
-print(cur_result)
+# c.execute("DROP TABLE 'com.ibuild.idothabit_us'")
+# cur_result = c.fetchone()
+# print(cur_result)
 #sql_fetch(conn)
 
 conn.commit()

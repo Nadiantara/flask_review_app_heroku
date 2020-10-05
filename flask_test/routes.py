@@ -64,13 +64,15 @@ def index():
     appinfo = app_info(playstore_id, lang='en', country=country_id)
     # check if the queried cookies exist
     if(playstore_id is not None and country_id is not None):
-        temp_name = f"{playstore_id.lower()}_{country_id.lower()}"    
+        temp_name = f"{playstore_id}_{country_id.lower()}"    
         # check if table exists 
         if(conn.dialect.has_table(conn.connect(), temp_name)):
             QUERIED_TABLE = temp_name
             from flask_test.webapp_functions.visualization_plot_plotly import make_plots
             print(QUERIED_TABLE)
-            plots = make_plots(QUERIED_TABLE)
+            plots = make_plots(QUERIED_TABLE, conn)
+            if plots == 404:
+                abort(404)
             return render_template('index.html', title='Home', plots=plots, appinfo=appinfo["title"])
         else:
             QUERIED_TABLE = None
@@ -85,7 +87,7 @@ def index():
 def scrape():
     playstore_id = request.cookies.get("playstore_id")
     country_id = request.cookies.get("country_code")
-    temp_name = f"{playstore_id.lower()}_{country_id.lower()}"
+    temp_name = f"{playstore_id}_{country_id.lower()}"
     if(conn.dialect.has_table(conn.connect(), temp_name)):
         QUERIED_TABLE = temp_name
         data = {'message': 'DB Table Exist', 'code': 'SUCCESS'}
@@ -112,7 +114,7 @@ def submit_form():
     print(end_date)
     APPID = request.form["app_id"]
     PLAYSTORE_ID = request.form["play_store_id"]
-    APPLE_COUNTRY = request.form["country_code"].upper()
+    APPLE_COUNTRY = request.form["country_code"].lower()
     GOOGLE_COUNTRY = request.form["country_code"].lower()
     
     #check if user input is valid or not
