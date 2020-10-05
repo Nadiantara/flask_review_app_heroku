@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block default_content %}
+<div class="jumbotron">
+    <!-- Page Content Holder -->
+    <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="jumbotron">
+            <h1 class="display-3">Woah, there are some problems.</h1>
+            <p class="lead">
+                The application or country id that you entered is not valid or there is a problem on our server.
+                <br />If you think this is an error, please
+                help us fix this by contacting us at <a href="#" class="text-warning">admin@supertype.com</a>.
+            </p>
+            <a href="{{ url_for('index') }}"><button type="button" class="btn btn-dark">Back to Home</button></a>
+        </div>
+    </div>
+</div>
+
+{% endblock default_content %}
