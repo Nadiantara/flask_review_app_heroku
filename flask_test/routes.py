@@ -61,7 +61,7 @@ def index():
     QUERIED_TABLE = None
     playstore_id = request.cookies.get("playstore_id")
     country_id = request.cookies.get("country_code")
-    appinfo = app_info(playstore_id, lang='en', country=country_id)
+    #appinfo = app_info(playstore_id, lang='en', country=country_id)
     # check if the queried cookies exist
     if(playstore_id is not None and country_id is not None):
         temp_name = f"{playstore_id}_{country_id.lower()}"    
@@ -73,7 +73,7 @@ def index():
             plots = make_plots(QUERIED_TABLE, conn)
             if plots == 404:
                 abort(404)
-            return render_template('index.html', title='Home', plots=plots, appinfo=appinfo["title"])
+            return render_template('index.html', title='Home', plots=plots)
         else:
             QUERIED_TABLE = None
             return render_template('user_landing.html', title='Welcome')

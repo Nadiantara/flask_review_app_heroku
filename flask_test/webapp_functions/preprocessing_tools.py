@@ -130,7 +130,7 @@ def google_scrapper(PLAYSTORE_ID, COUNTRY, db_connection):
   if res.status_code == 200:
     BATCH_SIZE = 50
     MAX_REVIEWS = 50000
-    appinfo = app(PLAYSTORE_ID,lang='en',country=COUNTRY)
+    #appinfo = app(PLAYSTORE_ID,lang='en',country=COUNTRY)
     AVAIL_REVIEWS = appinfo.get('reviews')
     TOFETCH_REVIEWS = min(AVAIL_REVIEWS, MAX_REVIEWS)
     t = tqdm(total=TOFETCH_REVIEWS)
