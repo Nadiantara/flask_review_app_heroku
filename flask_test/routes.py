@@ -27,7 +27,7 @@ conn = db.engine
 
 # load dummy datasets as a pandas DataFrame
 from vega_datasets import data
-cars = data.cars()
+carss = data.cars()
 electricity = data.iowa_electricity()
 barley_yield = data.barley()
 
