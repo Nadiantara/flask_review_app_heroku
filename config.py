@@ -11,6 +11,7 @@ class Config:
     """Flask configuration variables."""
 
     # General Config
+    FLASK_ENV='production'
     PROPAGATE_EXCEPTIONS = True
     FLASK_APP = environ.get('FLASK_APP')
     FLASK_ENV = environ.get('FLASK_ENV')
