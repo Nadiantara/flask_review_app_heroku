@@ -116,27 +116,24 @@ def apple_scrapper(APPID, COUNTRY, db_connection):
         # set the 'at' column as datetime
         df['at'] = pd.to_datetime(df['at'])
 
-        if len(df) < 10:
-          return False
-        
-        else:
-          df.to_sql(apple_sqlite_table,
-                      db_connection, if_exists='append')
 
-          apple_remove_duplicate_query = text(f"""DELETE FROM '{apple_sqlite_table}'
-            WHERE ROWID NOT IN (SELECT MIN(rowid)
-            FROM '{apple_sqlite_table}' GROUP BY reviewId, review, version, rating,
-            at, country
-            )""")
-          db_connection.execute(apple_remove_duplicate_query)
+        df.to_sql(apple_sqlite_table,
+                    db_connection, if_exists='append')
 
-          job_id = "delete_apple_table_job"
-          delta_timeunit = 1000
-          run_date = datetime.now() + timedelta(hours=delta_timeunit)
-          scheduler.add_job(func=delete_table_job, trigger="date",
-                            run_date=run_date, args=[apple_sqlite_table])
+        apple_remove_duplicate_query = text(f"""DELETE FROM '{apple_sqlite_table}'
+          WHERE ROWID NOT IN (SELECT MIN(rowid)
+          FROM '{apple_sqlite_table}' GROUP BY reviewId, review, version, rating,
+          at, country
+          )""")
+        db_connection.execute(apple_remove_duplicate_query)
 
-          return True
+        job_id = "delete_apple_table_job"
+        delta_timeunit = 1000
+        run_date = datetime.now() + timedelta(hours=delta_timeunit)
+        scheduler.add_job(func=delete_table_job, trigger="date",
+                          run_date=run_date, args=[apple_sqlite_table])
+
+        return True
     return False
 
 def google_scrapper(PLAYSTORE_ID, COUNTRY, db_connection):
@@ -203,36 +200,33 @@ def google_scrapper(PLAYSTORE_ID, COUNTRY, db_connection):
     df_google.reset_index(drop=True, inplace=True)
     df_google['at'] = pd.to_datetime(df_google['at']) #set the 'at' column as datetime
 
-    if len(df_google) < 10:
-      return False
-    
-    else:
-      df_google.to_sql(google_sqlite_table,
-                          db_connection, if_exists='append')
 
-      google_remove_duplicate_query = text(f"""DELETE FROM '{google_sqlite_table}'
-            WHERE ROWID NOT IN (SELECT MIN(rowid)
-            FROM '{google_sqlite_table}' GROUP BY reviewId,
-            review, rating,  version, at
-            )""")
-      db_connection.execute(google_remove_duplicate_query)
+    df_google.to_sql(google_sqlite_table,
+                        db_connection, if_exists='append')
 
-      job_id = "delete_google_table_job"
-      delta_timeunit = 1000
-      run_date = datetime.now() + timedelta(hours=delta_timeunit)
-      scheduler.add_job(func=delete_table_job, trigger="date", run_date=run_date, args=[google_sqlite_table]) 
+    google_remove_duplicate_query = text(f"""DELETE FROM '{google_sqlite_table}'
+          WHERE ROWID NOT IN (SELECT MIN(rowid)
+          FROM '{google_sqlite_table}' GROUP BY reviewId,
+          review, rating,  version, at
+          )""")
+    db_connection.execute(google_remove_duplicate_query)
 
-      # I dont use this because Pandas dataframe still returning sqlite instance as an object
-      # Its better to change the data type after we load it into dataframe
+    job_id = "delete_google_table_job"
+    delta_timeunit = 1000
+    run_date = datetime.now() + timedelta(hours=delta_timeunit)
+    scheduler.add_job(func=delete_table_job, trigger="date", run_date=run_date, args=[google_sqlite_table]) 
 
-      # df_google_ps.to_sql(google_sqlite_table, db_connection, if_exists='append',
-      #                     dtype={'reviewId': sqlalchemy.VARCHAR(),
-      #                            'userName':  sqlalchemy.types.VARCHAR(),
-      #                            'content': sqlalchemy.types.VARCHAR(),
-      #                            'score': sqlalchemy.types.Float(precision=1, asdecimal=True),
-      #                            'reviewCreatedVersion': sqlalchemy.types.VARCHAR})
+    # I dont use this because Pandas dataframe still returning sqlite instance as an object
+    # Its better to change the data type after we load it into dataframe
 
-      return True
+    # df_google_ps.to_sql(google_sqlite_table, db_connection, if_exists='append',
+    #                     dtype={'reviewId': sqlalchemy.VARCHAR(),
+    #                            'userName':  sqlalchemy.types.VARCHAR(),
+    #                            'content': sqlalchemy.types.VARCHAR(),
+    #                            'score': sqlalchemy.types.Float(precision=1, asdecimal=True),
+    #                            'reviewCreatedVersion': sqlalchemy.types.VARCHAR})
+
+    return True
 
   return False
   # return filename, google_sqlite_table, PLAYSTORE_ID
