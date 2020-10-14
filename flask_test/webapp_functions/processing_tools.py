@@ -149,8 +149,8 @@ def get_negreview_topic(dataframe):
     
     # topic modelling
     MODEL_BASE_DIR = "flask_test/webapp_functions/nlp_models/"
-    vec=pickle.load(open(f'{MODEL_BASE_DIR}dummy_cv.pickel',mode='rb')) #vec is the count vectorizer associated with the LDA model
-    LDA=pickle.load(open(f'{MODEL_BASE_DIR}dummy_lda.pickel',mode='rb')) #LDA is the pretrained lda model
+    vec=pickle.load(open(f"{MODEL_BASE_DIR}dummy_cv.pkl",mode='rb')) #vec is the count vectorizer associated with the LDA model
+    LDA=pickle.load(open(f"{MODEL_BASE_DIR}dummy_lda.pkl",mode='rb')) #LDA is the pretrained lda model
     
     neg_df_1=dataframe[dataframe['rating']<4] #make sure to take the negative set here
     negative_preprocessed = get_preprocess_data(neg_df_1)
