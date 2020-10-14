@@ -69,7 +69,6 @@ def index():
  
     if(app_id is not None and country_code is not None):
         store_type = _guess_store(app_id)
-        print(store_type)
         
         temp_name = f"{str(app_id)}_{str(country_code)}"
         
@@ -161,7 +160,6 @@ def submit_form():
         app_id = form.app_id.data
         country_code = request.form["country_code"]
         
-        print(end_date)
         #retrieving user input
         #start_date 
         # date_dep = request.form["start_date"]
@@ -230,8 +228,7 @@ def fetch_basic_plots():
         country_code = request.cookies.get("country_code")
         temp_name = f"{app_id}_{country_code}"
     
-    print("Plot 1 store: ", store_type)
-    print("Plot 1 table: ", temp_name)
+
     return (make_basic_plots_and_stats(temp_name, start_date, end_date))
 
 @app.route("/sentiment-plots")
@@ -246,8 +243,7 @@ def fetch_sentiment_plots():
     else:
         country_code = request.cookies.get("country_code")
         temp_name = f"{app_id}_{country_code}"
-    print("Plot 2 store: ", store_type)
-    print("Plot 2 table: ", temp_name)
+
     return (make_sentiment_plots(temp_name, start_date, end_date))
 
 @app.route("/about")

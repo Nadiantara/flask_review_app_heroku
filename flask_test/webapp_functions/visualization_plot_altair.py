@@ -284,7 +284,7 @@ def plot_alt_totalreview_2(dataframe, start_date, end_date):
     grouped_multiple.columns = ['review']
     grouped_multiple.reset_index(inplace=True)
     grouped_multiple = grouped_multiple.loc[grouped_multiple['version'].isin(grouped_multiple['version'].unique()[-13:])]
-    print(grouped_multiple) 
+
 
     # Defining selection
     highlight = alt.selection(type='single', on='mouseover',
