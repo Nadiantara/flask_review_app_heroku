@@ -34,7 +34,7 @@ from flask_test import db, scheduler
 from datetime import datetime, timedelta
 from bs4 import BeautifulSoup
 from random import randint
-from secrets import token_hex
+#
 
 def delete_table_job(tablename):
   conn = db.engine
@@ -83,9 +83,9 @@ def apple_scrapper(APPID, COUNTRY, db_connection):
             return apple_df
         df = extract_response(APPID)
         #fake index
-        dummy = [token_hex(7) for i in range(len(df))]
+        #dummy = [token_hex(7) for i in range(len(df))]
         df.reset_index(inplace=True)
-        df.reindex(dummy)
+        #df.reindex(dummy)
         data = [df['username'], df['content'],
                 df['version'], df['rating'], df['date'], df['country']]
         headers = ['reviewId', 'review', 'version', 'rating', 'at', 'country']

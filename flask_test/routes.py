@@ -77,11 +77,8 @@ def index():
             QUERIED_TABLE = temp_name
             print(QUERIED_TABLE)
             fetched_df = pd.read_sql_table(temp_name, conn)
-            neg_dataframe, topic = get_negreview_topic(fetched_df)
-            priority_score = pd.merge(get_importancescore(fetched_df, neg_dataframe, topic), get_urgencyscore(
-                fetched_df, neg_dataframe, topic), on='Topic')
-            priority_score_scaled = get_priority_score_scaled(priority_score)
-            priority_score_scaled = priority_score_scaled.round(2)
+            feature_list = ["Topic", "importance_score_scaled", "score"]
+            priority_score_scaled = pd.DataFrame("initializing . . .", index=range(6), columns=feature_list)
             #priority_score_scaled.to_csv(
                 #"flask_test/webapp_functions/models/priority_score_scaled.csv", index=False)
             return render_template('content.html', title='Home', form=form, content_title=app_id, priority_score_scaled=priority_score_scaled)
