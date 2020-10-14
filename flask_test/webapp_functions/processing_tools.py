@@ -148,7 +148,7 @@ def get_negreview_topic(dataframe):
     '''
     
     # topic modelling
-    MODEL_BASE_DIR = "flask_test/webapp_functions/models/"
+    MODEL_BASE_DIR = "flask_test/webapp_functions/nlp_models/"
     vec=pickle.load(open(f'{MODEL_BASE_DIR}dummy_cv.pickel',mode='rb')) #vec is the count vectorizer associated with the LDA model
     LDA=pickle.load(open(f'{MODEL_BASE_DIR}dummy_lda.pickel',mode='rb')) #LDA is the pretrained lda model
     
