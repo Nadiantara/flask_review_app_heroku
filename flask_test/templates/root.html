@@ -33,11 +33,14 @@
     <script src="https://cdn.jsdelivr.net/npm/vega-tooltip@0.16.0/build/vega-tooltip.min.js"></script>
     <script src="https://d3js.org/d3.v3.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/vega@4"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vega@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@3.0.0-rc12"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@3"></script> -->
     <script src="https://vega.github.io/datalib/datalib.min.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
     <!--Favicon-->
     <link rel="apple-touch-icon" sizes="180x180" href= "{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
@@ -49,12 +52,10 @@
 </head>
 
 <body>
-
-    {% block default_content %}{% endblock default_content %}
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    {% block content_wrapper %}
+    {% endblock content_wrapper %}
+    <!-- jQuery CDN - With AJAX -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
         integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
@@ -72,5 +73,4 @@
         });
     </script>
 </body>
-
 </html>

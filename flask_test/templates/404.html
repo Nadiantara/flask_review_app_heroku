@@ -1,8 +1,8 @@
-{% extends "index.html" %}
-{% block landing %}
+{% extends "root.html" %}
+{% block content_wrapper %}
 <div class="jumbotron">
     <!-- Page Content Holder -->
-    <div id="content">  
+    <div id="content">
         <div class="jumbotron">
             <h1 class="display-3">Woah, there are some problems.</h1>
             <p class="lead">
@@ -10,8 +10,8 @@
                 <br />If you think this is an error, please
                 help us fix this by contacting us at <a href="#" class="text-warning">admin@supertype.com</a>.
             </p>
+            <a href="{{ url_for('index') }}"><button type="button" class="btn btn-dark">Back to Home</button></a>
         </div>
     </div>
 </div>
-
-{% endblock landing %}
+{% endblock content_wrapper %}
