@@ -28,7 +28,7 @@ nltk==3.5
 seaborn==0.10.1
 beautifulsoup4==4.9.1
 pyLDAvis==2.1.2
-scikit_learn==0.23.2
+scikit_learn
 APScheduler==3.6.3
 python-dotenv
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-1.2.0/en_core_web_sm-1.2.0.tar.gz
