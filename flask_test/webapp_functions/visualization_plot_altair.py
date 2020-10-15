@@ -657,6 +657,9 @@ def make_sentiment_plots(table_name, start_date, end_date):
   conn = db.engine
   # fetch dataset
   fetched_df = pd.read_sql_table(table_name, conn)
+  fetched_df["at"] = fetched_df["at"].astype('datetime64[ns]')
+  fetched_df["rating"] = fetched_df["rating"].astype(str).astype(int)
+  fetched_df["review"] = fetched_df.review.astype('string')
   neg_df, topic = get_negreview_topic(fetched_df)
 
   # preprocess

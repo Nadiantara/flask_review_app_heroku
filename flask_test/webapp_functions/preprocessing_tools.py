@@ -114,9 +114,7 @@ def apple_scrapper(APPID, COUNTRY, db_connection):
         
         df.reset_index(drop=True, inplace=True)
         # set the 'at' column as datetime
-        df['at'] = pd.to_datetime(df['at'])
-
-
+        df["at"] = df["at"].astype('datetime64[ns]')
         df.to_sql(apple_sqlite_table,
                     db_connection, if_exists='append')
 
