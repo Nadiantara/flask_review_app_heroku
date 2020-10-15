@@ -496,27 +496,16 @@ def lemmatize(reviews):
 # combine all functions above to one "preprocess_data" function below
 def preprocess_data(df):
   df=df.copy()
-  print("function0 ok")
   df['review'] = df['review'].apply(lambda x: x.lower())  # lowering case
-  print("function1 ok")
-  df['review']=df['review'].apply(deEmojify)   
-  print("function2 ok")        #removing emoji
-  df['review']=df['review'].apply(expand_contractions) 
-  print("function3 ok")  
-  df['review']=df['review'].apply(remove_stop_words) 
-  print("function4 ok")  
+  df['review']=df['review'].apply(deEmojify)         #removing emoji
+  df['review']=df['review'].apply(expand_contractions)  
+  df['review']=df['review'].apply(remove_stop_words)  
   df['review']=df['review'].apply(remove_punctuation) 
-  print("function5 ok") 
   df['review']=df['review'].apply(lambda s: re.sub(r"[^a-zA-Z]"," ",s)) #keep only alphabetical words
-  print("function6 ok") 
   df['review']=df['review'].apply(lambda s:re.sub(' +', ' ', s))   #remove + sign
-  print("function7 ok") 
   df['review']=df['review'].apply(lemmatize) #apply lemmatizer
-  print("function8 ok") 
   df['review']=df['review'].apply(remove_short_words)
-  print("function9 ok") 
   df.drop(df[df['review'].apply(lambda x: len(x)==0)].index,inplace=True)
-  print("function10 ok") 
   #df.reset_index(inplace=True,drop=True) 
   return df
 

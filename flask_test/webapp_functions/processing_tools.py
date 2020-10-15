@@ -89,7 +89,7 @@ def get_preprocess_data(df):
     df['review']=df['review'].apply(remove_short_words)
     df.drop(df[df['review'].apply(lambda x: len(x)==0)].index,inplace=True)
     return df
-
+  
 def get_ngrams_init(df):
   pos=df[df['rating'].isin([4,5])] #keep the index this way, will use the indexes later
   neg=df[df['rating'].isin([1,2,3])] 
