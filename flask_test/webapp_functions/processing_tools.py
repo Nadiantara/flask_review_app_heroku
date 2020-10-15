@@ -152,11 +152,13 @@ def get_negreview_topic(dataframe):
     #vec=pickle.load(open(f"{MODEL_BASE_DIR}dummy_cv.pkl",mode='rb')) #vec is the count vectorizer associated with the LDA model
     #LDA=pickle.load(open(f"{MODEL_BASE_DIR}dummy_lda.pkl",mode='rb')) #LDA is the pretrained lda model
      
-    with open(f"{MODEL_BASE_DIR}dummy_cv.pkl", mode='rb') as f1,\
-      open(f"{MODEL_BASE_DIR}dummy_lda.pkl", mode='rb') as f2:
-        vec = pickle.loads(f1.read())
-        LDA = pickle.loads(f2.read())
-    
+    # with open(f"{MODEL_BASE_DIR}dummy_cv.pkl", mode='rb') as f1,\
+    #   open(f"{MODEL_BASE_DIR}dummy_lda.pkl", mode='rb') as f2:
+    #     vec = pickle.loads(f1.read())
+    #     LDA = pickle.loads(f2.read())
+        
+    vec = pd.read_pickle(f'{MODEL_BASE_DIR}dummy_cv.pkl')
+    LDA = pd.read_pickle(f'{MODEL_BASE_DIR}dummy_lda.pkl')
     neg_df_1=dataframe[dataframe['rating']<4] #make sure to take the negative set here
     negative_preprocessed = get_preprocess_data(neg_df_1)
     negative_preprocessed_value=negative_preprocessed['review'].values
