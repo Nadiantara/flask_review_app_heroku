@@ -102,7 +102,6 @@ def scrape():
     if store_type == "PlayStore":
         
         temp_name = f"{app_id}_{country_code}"
-        print("REQUEST", request)
 
         if(conn.dialect.has_table(conn.connect(), temp_name)):
             print("TEMP NAME1", temp_name)
@@ -112,7 +111,7 @@ def scrape():
         else:
             print("TEMP NAME2", temp_name)
             condition = google_scrapper(
-                AppForm().app_id.data, request.form["country_code"], conn)
+                app_id, country_code, conn)
             if condition == False:
                 abort(404)
             data = {'message': 'DB Table Created', 'code': 'SUCCESS'}
@@ -129,7 +128,7 @@ def scrape():
         else:
             print("TEMP NAME2 will be downloaded", temp_name)
             condition = apple_scrapper(
-                AppForm().app_id.data, request.form["country_code"], conn)
+                app_id, country_code, conn)
             if condition == False:
                 abort(404)
             data = {'message': 'DB Table Created', 'code': 'SUCCESS'}
@@ -157,23 +156,6 @@ def submit_form():
         app_id = form.app_id.data
         country_code = request.form["country_code"]
         
-        #retrieving user input
-        #start_date 
-        # date_dep = request.form["start_date"]
-        # start_date = str(pd.to_datetime(date_dep, format="%Y-%m-%dT%H:%M"))
-        # #end_date
-        # date_arr = request.form["end_date"]
-        # end_date = str(pd.to_datetime(date_arr, format="%Y-%m-%dT%H:%M"))
-        # print(end_date)
-        
-        #APPID = request.form["app_id"]
-        
-        # PLAYSTORE_ID = request.form["play_store_id"]
-        # APPLE_COUNTRY = request.form["country_code"].upper()
-        # GOOGLE_COUNTRY = request.form["country_code"]
-        
-        #check if user input is valid or not
-        #zeroth dataframe for intializing
         feature_list = ["Topic", "importance_score_scaled", "score"]
         priority_score_scaled = pd.DataFrame(
             "initializing . . .", index=range(6), columns=feature_list)
