@@ -80,24 +80,12 @@ def remove_short_words(sentence):
 def get_preprocess_data(df):
     df = df.copy()
     df['review'] = df['review'].astype(str)
-    print(df['review'].values[0:5])
-    print("1"*25 )
     df['review'] = df['review'].apply(lambda x: x.lower())  # lowering case
-    print(df['review'].values[0:5])
-    print("2"*25)
     df['review'] = df['review'].apply(deEmojify)  # removing emoji
-    print(df['review'].values[0:5])
-    print("3"*25)
     df['review'] = df['review'].apply(expand_contractions)
-    print(df['review'].values[0:5])
-    print("4"*25)
     df['review'] = df['review'].apply(remove_punctuation)
-    print(df['review'].values[0:5])
-    print("5"*25)
     df['review'] = df['review'].apply(lambda s: re.sub(
         r"[^a-zA-Z]", " ", s))  # keep only alphabetical words
-    print(df['review'].values[0:5])
-    print("6"*25)
     df['review'] = df['review'].apply(lemmatize)
     print(df['review'].values[0:5])
     print("7"*25)

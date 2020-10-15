@@ -1,6 +1,6 @@
 from flask_test import app, forms, db, scheduler, cache
 from flask_test.webapp_functions.preprocessing_tools import apple_scrapper, google_scrapper
-from flask_test.webapp_functions.processing_tools import get_negreview_topic, get_importancescore, get_urgencyscore, get_priority_score_scaled
+from flask_test.webapp_functions.processing_tools import get_importancescore, get_urgencyscore, get_priority_score_scaled
 from flask_test.webapp_functions.visualization_plot_altair import make_basic_plots_and_stats, make_sentiment_plots
 from flask_test.forms import AppForm, _guess_store, validate_appid
 from flask_cors import cross_origin
