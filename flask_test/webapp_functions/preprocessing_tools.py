@@ -150,7 +150,7 @@ def google_scrapper(PLAYSTORE_ID, COUNTRY, db_connection):
   if res.status_code == 200:
 
     BATCH_SIZE = 50
-    MAX_REVIEWS = 10000 
+    MAX_REVIEWS = 7500 
     appinfo = app(
         PLAYSTORE_ID,
         lang='en',
