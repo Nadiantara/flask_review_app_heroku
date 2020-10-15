@@ -162,6 +162,8 @@ def get_negreview_topic(dataframe):
     neg_df_1=dataframe[dataframe['rating']<4] #make sure to take the negative set here
     negative_preprocessed = get_preprocess_data(neg_df_1)
     negative_preprocessed_value=negative_preprocessed['review'].values
+    print("neg_df_1: ", neg_df_1.head())
+    print("negative_preprocessed_value: ", negative_preprocessed_value.head())
     topic_names=['network_issues','topic_2','interface/listing','scammers/transaction_experience','topic_4','updates/message/notif_issues'] #transaction related--> everything between buyer seller
     dtm=vec.transform(negative_preprocessed_value).toarray()
     topic_distributions=LDA.transform(dtm)
