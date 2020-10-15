@@ -75,19 +75,46 @@ def remove_short_words(sentence):
   return " ".join(out)
 
 # combine most of the functions above to one "preprocess_data" function below
+
+
 def get_preprocess_data(df):
-    df=df.copy()
-    df['review']=df['review'].astype(str)
+    df = df.copy()
+    df['review'] = df['review'].astype(str)
+    print(df['review'].values[0:5])
+    print("1"*25 )
     df['review'] = df['review'].apply(lambda x: x.lower())  # lowering case
-    df['review']=df['review'].apply(deEmojify)           #removing emoji
-    df['review']=df['review'].apply(expand_contractions) 
-    df['review']=df['review'].apply(remove_punctuation)   
-    df['review']=df['review'].apply(lambda s: re.sub(r"[^a-zA-Z]"," ",s)) #keep only alphabetical words
-    df['review']=df['review'].apply(lemmatize)
-    df['review']=df['review'].apply(remove_stop_words) #also removes short words
-    df['review']=df['review'].apply(lambda s:re.sub(' +', ' ', s))   #remove + sign
-    df['review']=df['review'].apply(remove_short_words)
-    df.drop(df[df['review'].apply(lambda x: len(x)==0)].index,inplace=True)
+    print(df['review'].values[0:5])
+    print("2"*25)
+    df['review'] = df['review'].apply(deEmojify)  # removing emoji
+    print(df['review'].values[0:5])
+    print("3"*25)
+    df['review'] = df['review'].apply(expand_contractions)
+    print(df['review'].values[0:5])
+    print("4"*25)
+    df['review'] = df['review'].apply(remove_punctuation)
+    print(df['review'].values[0:5])
+    print("5"*25)
+    df['review'] = df['review'].apply(lambda s: re.sub(
+        r"[^a-zA-Z]", " ", s))  # keep only alphabetical words
+    print(df['review'].values[0:5])
+    print("6"*25)
+    df['review'] = df['review'].apply(lemmatize)
+    print(df['review'].values[0:5])
+    print("7"*25)
+    df['review'] = df['review'].apply(
+        remove_stop_words)  # also removes short words
+    print(df['review'].values[0:5])
+    print("8"*25)
+    df['review'] = df['review'].apply(
+        lambda s: re.sub(' +', ' ', s))  # remove + sign
+    print(df['review'].values[0:5])
+    print("9"*25)
+    df['review'] = df['review'].apply(remove_short_words)
+    print(df['review'].values[0:5])
+    print("10"*25)
+    df.drop(df[df['review'].apply(lambda x: len(x) == 0)].index, inplace=True)
+    print(df['review'].values[0:5])
+    print("11"*25)
     return df
   
 def get_ngrams_init(df):
