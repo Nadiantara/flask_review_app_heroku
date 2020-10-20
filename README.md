@@ -9,3 +9,5 @@ To Run:
 - Run the web app with
   `flask run`
 Checkout the `dev` or `dev_*` branch for the latest works
+
+test
