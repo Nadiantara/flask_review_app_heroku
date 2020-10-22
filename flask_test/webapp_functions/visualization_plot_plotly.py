@@ -48,7 +48,6 @@ from flask_test import db, cache
 
 def plot_totalreview_google_date(dataframe):
   df = dataframe
-  #print(df.head())
   df.index = df['at']
   df = pd.DataFrame(df['review'].resample('MS').count()).join(
       pd.DataFrame(df['rating'].resample('MS').mean()))

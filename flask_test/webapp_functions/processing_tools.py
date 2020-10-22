@@ -87,22 +87,17 @@ def get_preprocess_data(df):
     df['review'] = df['review'].apply(lambda s: re.sub(
         r"[^a-zA-Z]", " ", s))  # keep only alphabetical words
     df['review'] = df['review'].apply(lemmatize)
-    print(df['review'].values[0:5])
-    print("7"*25)
+
     df['review'] = df['review'].apply(
         remove_stop_words)  # also removes short words
-    print(df['review'].values[0:5])
-    print("8"*25)
+
     df['review'] = df['review'].apply(
         lambda s: re.sub(' +', ' ', s))  # remove + sign
-    print(df['review'].values[0:5])
-    print("9"*25)
+
     df['review'] = df['review'].apply(remove_short_words)
-    print(df['review'].values[0:5])
-    print("10"*25)
+
     df.drop(df[df['review'].apply(lambda x: len(x) == 0)].index, inplace=True)
-    print(df['review'].values[0:5])
-    print("11"*25)
+
     return df
   
 def get_ngrams_init(df):
@@ -177,8 +172,6 @@ def get_negreview_topic(dataframe):
     neg_df_1=dataframe[dataframe['rating']<4] #make sure to take the negative set here
     negative_preprocessed = get_preprocess_data(neg_df_1)
     negative_preprocessed_value=negative_preprocessed['review'].values
-    print("neg_df_1: ", neg_df_1.head())
-    print(negative_preprocessed_value[0:5])
     topic_names=['network_issues','topic_2','interface/listing','scammers/transaction_experience','topic_4','updates/message/notif_issues'] #transaction related--> everything between buyer seller
     dtm=vec.transform(negative_preprocessed_value).toarray()
     topic_distributions=LDA.transform(dtm)

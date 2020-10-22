@@ -40,16 +40,6 @@ barley_yield = data.barley()
 ##########################
 # render content.html home page
 
-# DEBUG
-# scheduler = BackgroundScheduler()
-def print_date_time(mytext):
-    print(mytext, time.strftime("%A, %d. %B %Y %I:%M:%S %p"))
-def schedule_dummy_time_job():
-    # Define Scheduler
-    run_date = datetime.now() + timedelta(seconds=5)
-    scheduler.add_job(func=print_date_time, trigger="date", run_date=run_date, args=["this text"])
-    # Shut down the scheduler when exiting the app
-# DEBUG END
 
 #Error handler
 @app.errorhandler(404)
@@ -75,7 +65,6 @@ def index():
         # check if table exists 
         if(conn.dialect.has_table(conn.connect(), temp_name)):
             QUERIED_TABLE = temp_name
-            print(QUERIED_TABLE)
             fetched_df = pd.read_sql_table(temp_name, conn)
             feature_list = ["Topic", "importance_score_scaled", "score"]
             priority_score_scaled = pd.DataFrame("initializing . . .", index=range(6), columns=feature_list)
@@ -104,12 +93,10 @@ def scrape():
         temp_name = f"{app_id}_{country_code}"
 
         if(conn.dialect.has_table(conn.connect(), temp_name)):
-            print("TEMP NAME1", temp_name)
             QUERIED_TABLE = temp_name
             data = {'message': 'DB Table Exist', 'code': 'SUCCESS'}
             
         else:
-            print("TEMP NAME2", temp_name)
             condition = google_scrapper(
                 app_id, country_code, conn)
             if condition == False:
@@ -118,15 +105,12 @@ def scrape():
             
     elif store_type == "AppStore":
         temp_name = f"{app_id}_{country_code}"
-        print("REQUEST", request)
 
         if(conn.dialect.has_table(conn.connect(), temp_name)):
-            print("TEMP NAME1", temp_name)
             QUERIED_TABLE = temp_name
             data = {'message': 'DB Table Exist', 'code': 'SUCCESS'}
             
         else:
-            print("TEMP NAME2 will be downloaded", temp_name)
             condition = apple_scrapper(
                 app_id, country_code, conn)
             if condition == False:

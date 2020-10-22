@@ -46,7 +46,6 @@ def apple_scrapper(APPID, COUNTRY, db_connection):
     apple_sqlite_table = f'{APPID}_{COUNTRY}'
     if(db_connection.dialect.has_table(db_connection.connect(), apple_sqlite_table)):
         return True
-    print("INITIALIZING APPLE SCRAPER")
     APPID = APPID
     COUNTRY = COUNTRY
     pages = 20
