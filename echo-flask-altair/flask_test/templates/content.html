@@ -1,0 +1,159 @@
+{% extends "content_wrapper.html" %}
+{% block content %}
+    <!-- Page Content Holder -->
+    <div id="content-title" class="mb-5">
+        <h2>{{ content_title }}</h2>
+    </div>
+    
+    <!-- Graph Content -->
+    <!-- <div id="ardy">
+        <div class=".container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <div id="review-across-time" class="shadow p-3 mb-5 bg-white"></div>
+                </div>
+                <br>
+                <br>
+                <div class="col-6">
+                    <div id="review-across-version" class="shadow p-3 mb-5 bg-white"></div>
+                </div>
+            </div>
+        </div> 
+    
+        <div id="review-across-time" class="shadow p-3 mb-5 bg-white"></div>
+        <div id="review-across-version" class="shadow p-3 mb-5 bg-white"></div>
+        <div id="neg-review-count" class="shadow p-3 mb-5 bg-white"></div>
+        <div id="trendline" class="shadow p-3 mb-5 bg-white"></div>
+        <div id="total-rating" class="shadow p-3 mb-5 bg-white d-table m-auto"></div>
+        <div id="priority-matrix" class="shadow p-3 mb-5 bg-white"></div>
+    </div> -->
+
+    <div id="chart-container">
+        <div class=".container-fluid shadow p-3 mb-5 bg-white" >
+            <div class="row">
+                <div class="col align-self-center">
+                    <h5>Reviews</h5>
+                    <h1 id="review-count" class="display-1"></h1>
+                </div>
+                <div class="col align-self-center">
+                    <h5>Average Rating</h5>
+                    <h1 id="average-rating" class="display-1"></h1>
+                </div>
+                <div class="col">
+                    <h5>Rating Breakdown</h5>
+                    <div id="total-rating"></div>
+                </div>
+            </div>
+        </div>
+        <!-- <br> -->
+
+        <div class=".container-fluid shadow p-3 mb-5 bg-white">
+            <div class="row">
+                <div class="col-6">
+                    <h5>Reviews Across Time</h5>
+                    <div id="review-across-time"></div>
+                </div>
+                <div class="col-6">
+                    <h5>Reviews Across Version</h5>
+                    <div id="review-across-version"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class=".container-fluid shadow p-3 mb-5 bg-white">
+            <h5>User Complaint Breakdown</h5>
+            <div id="neg-review-count"></div>
+        </div>
+        <div class="container-fluid shadow p-3 mb-5 bg-white">
+            <div class="row ">
+                <div class="col-6">
+                    <h5>Topic Trendline</h5>
+                    <div id="trendline"></div>
+                </div>
+                <div class="col-6">
+                    <h5>Action Priority Matrix</h5>
+                    <div id="priority-matrix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid" >
+            <h3>Improvement Insights</h3>
+            <div class="row shadow p-3 mb-5 bg-white">
+                <div class="col-6">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Topic issues</th>
+                                <th scope="col">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key,value in priority_score_scaled.iterrows() %}
+                            <tr>
+                                <th scope="row">{{key+1}}</th>
+                                <td>{{value['Topic']}}</td>
+                                <td>{{value['importance_score_scaled']}} </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Topic priority </th>
+                                <th scope="col">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key,value in priority_score_scaled.iterrows() %}
+                            <tr>
+                                <th scope="row">{{key+1}}</th>
+                                <td>{{value['Topic']}}</td>
+                                <td>{{value['score']}} </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>  
+        </div>
+    </div>
+
+    <script>
+        // Embedding plots
+        let opt = {
+              mode: "vega-lite",
+              renderer: "svg",
+              actions: false
+            }; 
+
+        let embedStats = (divID, stat) => {
+            document.getElementById(divID).innerHTML = stat
+        }
+        
+        fetch('/basic-plots')
+        .then((resp) => resp.json())
+        .then((plotJSON) => {
+            embedStats("review-count", plotJSON[3]["stats"]["n_reviews"])
+            embedStats("average-rating", plotJSON[3]["stats"]["average_rating"])
+            vegaEmbed("#review-across-time", JSON.parse(plotJSON[0]), opt)
+            vegaEmbed("#review-across-version", JSON.parse(plotJSON[1]), opt)
+            vegaEmbed("#total-rating", JSON.parse(plotJSON[2]), opt)
+            return plotJSON
+        })
+        .then(() => fetch('/sentiment-plots'))
+        .then((resp) => resp.json())
+        .then((plotJSON) => {
+            vegaEmbed("#neg-review-count", JSON.parse(plotJSON[0]), opt)
+            vegaEmbed("#trendline", JSON.parse(plotJSON[1]), opt)
+            vegaEmbed("#priority-matrix", JSON.parse(plotJSON[2]), opt)
+        })
+        .catch((error) => console.log(error)) 
+    </script>
+    {% block loading %}{% endblock loading %}
+    {% block landing %}{% endblock landing %}
+{% endblock content %}

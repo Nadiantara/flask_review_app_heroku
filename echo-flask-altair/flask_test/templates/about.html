@@ -1,0 +1,21 @@
+{% extends "root.html" %}
+{% block content_wrapper %}
+<div class="jumbotron">
+    <!-- Page Content Holder -->
+    <div id="content">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    <h1>About</h1>
+    <h2>Supertype AI</h2>
+</div>
+{% endblock content_wrapper%}

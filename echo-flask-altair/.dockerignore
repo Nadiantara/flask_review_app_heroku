@@ -1,0 +1,7 @@
+**__pycache__/
+**.vscode
+flask_test/__pycache__
+flask_test/webapp_functions/__pycache__
+*conda
+*/*.db
+**/*.pyc

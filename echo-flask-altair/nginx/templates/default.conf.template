@@ -1,0 +1,16 @@
+server {
+    listen ${PORT};
+    server_name ${SERVER_NAME};
+    charset utf-8;
+
+    location /static {
+        alias /flask_test/static;
+    }
+
+    location / {
+        proxy_pass http://${WEB_SERVICE}:${WEB_PORT};
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}

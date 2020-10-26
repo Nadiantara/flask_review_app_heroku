@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+    web:
+        build: .
+        image: nadiantara/supertype
+        command: gunicorn --bind :8000 flask_test:app --reload
+        volumes:
+          - ./flask_test:/flask_test
+        env_file:
+          - .env
+    nginx:
+        image: nginx
+        ports:
+          - 80:80
+        volumes:
+          - ./nginx/templates:/etc/nginx/templates
+          - ./flask_test/static:/flask_test/static
+        environment:
+          - PORT=80
+          - SERVER_NAME=localhost
+          - WEB_SERVICE=web
+          - WEB_PORT=8000
+        depends_on:
+          - web

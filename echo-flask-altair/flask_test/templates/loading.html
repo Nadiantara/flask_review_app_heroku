@@ -1,0 +1,33 @@
+{% extends "content.html" %} 
+{% block loading %} 
+    <div id="loading-div" style="
+        position: relative;
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        background-color: #fafafa;
+    ">
+        <img src="static/svg/loading.svg" alt="We're getting your data..."/>
+        <p>
+            Please wait, we're scraping your data<br>
+            <small>Tip: If it takes too long, <b>try refreshing or try other application ID</b></small>
+        </p>
+    </div>
+    <script>
+        document.getElementById("chart-container").style.display = "none";
+
+        $.ajax({
+            type: "POST",
+            url: "/scrape",
+            data: {
+                app_id: "{{ app_id }}",
+                country_code: "{{ country_code }}",
+                start_date: "{{ start_date }}",
+                end_date: "{{ end_date }}",
+            },
+            success: function() {
+                window.location.replace('/')
+            }
+        });
+    </script>
+{% endblock loading %}

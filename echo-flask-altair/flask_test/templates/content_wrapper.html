@@ -1,0 +1,188 @@
+{% extends "root.html" %}
+{% block content_wrapper %}
+<div class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Reviews Analysis</h3>
+        </div>
+        <ul class="list-unstyled components">
+            <form id="required_form" action="submit" method="post">
+                {{ form.hidden_tag() }}
+                    <li>
+                        <a class="font-weight-bold">Filter the analyzed data</a>
+                    </li>
+                    <li>
+                        <a>Date Range<br><small class="m-0 p-0">The data will be analyzed within the date range</small></a>
+                        <a class="my-0 py-0"><small class="m-0 p-0">Start date</small></a>
+                        <input class="mt-0" type="date" name="start_date" id="start_date" value="2020-01-01" required="required">
+                    </li>
+                    <li>
+                        <a class="my-0 py-0"><small class="m-0 p-0">End date</small></a>
+                        <input class="mt-0" type="date" name="end_date" id="end_date" required="required">
+                    </li>
+                    <li>
+                        <div id="date-error-msg" class="d-none">                        
+                            <b>End date should be greater than Start date!</b>
+                        </div>
+                    </li>
+                    <li>
+                        <!-- {{ form.app_id.label }} -->
+                        <a class="my-0 py-0">App ID</a>
+                        {{ form.app_id(size=17) }}
+                        {% for error in form.app_id.errors %}
+                        <span class="text-danger">[{{ error }}]</span>
+                        {% endfor %}
+                    </li>
+                    <li>
+                        <a class="my-0 py-0">Country ID</a>
+                        <select name="country_code" id="country_code" required="required" style="width:200px" >
+                            <option value="" label="Select a country ... " selected="selected">Select a country ... </option>
+                            <optgroup id="country-optgroup-Africa" label="Africa">
+                                <option value="DZ" label="Algeria">Algeria</option>
+                                <option value="BW" label="Botswana">Botswana</option>
+                                <option value="EG" label="Egypt">Egypt</option>
+                                <option value="KE" label="Kenya">Kenya</option>
+                                <option value="MA" label="Morocco">Morocco</option>
+                                <option value="NG" label="Nigeria">Nigeria</option>
+                                <option value="RW" label="Rwanda">Rwanda</option>
+                                <option value="ZA" label="South Africa">South Africa</option>
+                                <option value="ZW" label="Zimbabwe">Zimbabwe</option>
+                            </optgroup>
+                            <optgroup id="country-optgroup-Americas" label="Americas">
+                                <option value="AR" label="Argentina">Argentina</option>
+                                <option value="BR" label="Brazil">Brazil</option>
+                                <option value="BR" label="Canada">Brazil</option>
+                                <option value="MX" label="Mexico">Mexico</option>
+                                <option value="US" label="United States">United States</option>
+                            </optgroup>
+                            <optgroup id="country-optgroup-Asia" label="Asia">
+                                <option value="IN" label="India">India</option>
+                                <option value="ID" label="Indonesia">Indonesia</option>
+                                <option value="IL" label="Israel">Israel</option>
+                                <option value="JP" label="Japan">Japan</option>
+                                <option value="MY" label="Malaysia">Malaysia</option>
+                                <option value="PK" label="Pakistan">Pakistan</option>
+                                <option value="PH" label="Philippines">Philippines</option>
+                                <option value="SA" label="Saudi Arabia">Saudi Arabia</option>
+                                <option value="SG" label="Singapore">Singapore</option>
+                                <option value="KR" label="South Korea">South Korea</option>
+                                <option value="TW" label="Taiwan">Taiwan</option>
+                                <option value="TH" label="Thailand">Thailand</option>
+                                <option value="TR" label="Turkey">Turkey</option>
+                                <option value="AE" label="United Arab Emirates">United Arab Emirates</option>
+                                <option value="VN" label="Vietnam">Vietnam</option>
+                            </optgroup>
+                            <optgroup id="country-optgroup-Europe" label="Europe">
+                                <option value="AT" label="Austria">Austria</option>
+                                <option value="BE" label="Belgium">Belgium</option>
+                                <option value="CZ" label="Czech Republic">Czech Republic</option>
+                                <option value="FR" label="France">France</option>
+                                <option value="DE" label="Germany">Germany</option>
+                                <option value="GR" label="Greece">Greece</option>
+                                <option value="HU" label="Hungary">Hungary</option>
+                                <option value="IS" label="Iceland">Iceland</option>
+                                <option value="IT" label="Italy">Italy</option>
+                                <option value="NL" label="Netherlands">Netherlands</option>
+                                <option value="NO" label="Norway">Norway</option>
+                                <option value="PL" label="Poland">Poland</option>
+                                <option value="PT" label="Portugal">Portugal</option>
+                                <option value="RU" label="Russia">Russia</option>
+                                <option value="ES" label="Spain">Spain</option>
+                                <option value="SE" label="Sweden">Sweden</option>
+                                <option value="UA" label="Ukraine">Ukraine</option>
+                                <option value="GB" label="United Kingdom">United Kingdom</option>
+                            </optgroup>
+                            <optgroup id="country-optgroup-Oceania" label="Oceania">
+                                <option value="AU" label="Australia">Australia</option>
+                                <option value="NZ" label="New Zealand">New Zealand</option>
+                            </optgroup>
+                        </select>
+                    </li>
+                    <li>
+                        <button id="submit-btn" type="submit" value="Submit" class="myButton mt-4">Submit</button>
+                    </li>
+                    <script type="text/javascript">
+                        $('#required_form').submit(function(event) {
+                            var startDate = document.getElementById("start_date").value;
+                            var endDate = document.getElementById("end_date").value;
+                            var countryCodeEl = document.getElementById("country_code");
+                            var countryCode = countryCodeEl.options[countryCodeEl.selectedIndex].value;
+                            // var appID = "{{form.app_id.data}}"
+
+                            if ((Date.parse(startDate) > Date.parse(endDate))) {
+                                $("#date-error-msg")
+                                    .removeClass('d-none')
+                                    .addClass('d-inline text-danger')
+                            }
+                            else {
+                                $("#submit-btn", this)
+                                    .html("Please Wait...")
+                                    .attr('disabled', 'disabled');
+                                // $.ajax({
+                                //     type: "POST",
+                                //     url: "/submit",
+                                //     data: {
+                                //         app_id: appID,
+                                //         country_code: countryCode,
+                                //         start_date: startDate,
+                                //         end_date: endDate,
+                                //     },
+                                // });
+                            }
+                            // event.preventDefault();
+                        });
+                    </script>
+                </form>
+            <!-- <li>
+                <a href="#">About</a>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                        <a href="#">Page 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 3</a>
+                    </li>
+                </ul>
+            </li> -->
+
+        </ul>
+
+        <!-- <ul class="list-unstyled CTAs">
+            <li>
+                <a href="#" class="download">Download the analysis as pdf</a>
+            </li>
+        </ul> -->
+    </nav>
+    <div id="content">
+        <!-- Sidebar Holder -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+
+                <button type="button" id="sidebarCollapse" class="navbar-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <i class="fas fa-align-justify"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('about') }}">About us</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        {% block content %}{% endblock content %}
+    </div>
+</div>
+{% endblock content_wrapper %}
