@@ -30,35 +30,12 @@ from apscheduler.schedulers.background import BackgroundScheduler
 #connect to SQLite database
 conn = db.engine
 
-# load dummy datasets as a pandas DataFrame
-cars = data.cars()
-electricity = data.iowa_electricity()
-barley_yield = data.barley()
-
 ##########################
 # Flask routes
 ##########################
 # render content.html home page
 
-# DEBUG
-# scheduler = BackgroundScheduler()
-
-
-def print_date_time(mytext):
-    print(mytext, time.strftime("%A, %d. %B %Y %I:%M:%S %p"))
-
-
-def schedule_dummy_time_job():
-    # Define Scheduler
-    run_date = datetime.now() + timedelta(seconds=5)
-    scheduler.add_job(func=print_date_time, trigger="date",
-                      run_date=run_date, args=["this text"])
-    # Shut down the scheduler when exiting the app
-# DEBUG END
-
 #Error handler
-
-
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('404.html'), 404
@@ -179,6 +156,7 @@ def submit_form():
         priority_score_scaled = pd.DataFrame(
             "initializing . . .", index=range(6), columns=feature_list)
         store_type = _guess_store(app_id)
+
         if store_type == "PlayStore":
             STOREURL = f'https://play.google.com/store/apps/details?id={app_id}&hl={country_code}'
             url_res = requests.get(STOREURL)
@@ -206,6 +184,7 @@ def submit_form():
             res.set_cookie("country_code", request.form["country_code"])
             res.set_cookie("start_date", start_date)
             res.set_cookie("end_date", end_date)
+
             return res
         else:
             abort(404)

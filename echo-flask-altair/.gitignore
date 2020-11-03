@@ -6,3 +6,5 @@ flask_test/webapp_functions/__pycache__
 *conda
 */*.db
 **/*.pyc
+**venv/
+.env

@@ -121,12 +121,12 @@ def apple_scrapper(APPID, COUNTRY, db_connection):
         df.to_sql(apple_sqlite_table,
                   db_connection, if_exists='append')
 
-        apple_remove_duplicate_query = text(f"""DELETE FROM '{apple_sqlite_table}'
-          WHERE ROWID NOT IN (SELECT MIN(rowid)
-          FROM '{apple_sqlite_table}' GROUP BY reviewId, review, version, rating,
-          at, country
-          )""")
-        db_connection.execute(apple_remove_duplicate_query)
+        # apple_remove_duplicate_query = text(f"""DELETE FROM "{apple_sqlite_table}"
+        #   WHERE ROWID NOT IN (SELECT MIN(rowid)
+        #   FROM "{apple_sqlite_table}" GROUP BY reviewId, review, version, rating,
+        #   at, country
+        #   )""")
+        # db_connection.execute(apple_remove_duplicate_query)
 
         job_id = "delete_apple_table_job"
         delta_timeunit = 1000
@@ -208,12 +208,12 @@ def google_scrapper(PLAYSTORE_ID, COUNTRY, db_connection):
     df_google.to_sql(google_sqlite_table,
                      db_connection, if_exists='append')
 
-    google_remove_duplicate_query = text(f"""DELETE FROM '{google_sqlite_table}'
-          WHERE ROWID NOT IN (SELECT MIN(rowid)
-          FROM '{google_sqlite_table}' GROUP BY reviewId,
-          review, rating,  version, at
-          )""")
-    db_connection.execute(google_remove_duplicate_query)
+    # google_remove_duplicate_query = text(f"""DELETE FROM "{google_sqlite_table}"
+    #       WHERE ROWID NOT IN (SELECT MIN(rowid)
+    #       FROM "{google_sqlite_table}" GROUP BY reviewId,
+    #       review, rating,  version, at
+    #       )""")
+    # db_connection.execute(google_remove_duplicate_query)
 
     job_id = "delete_google_table_job"
     delta_timeunit = 1000

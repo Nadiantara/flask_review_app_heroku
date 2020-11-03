@@ -1,4 +1,4 @@
-{% extends "content.html" %} 
+{% extends "content_wrapper.html" %} 
 {% block loading %} 
     <div id="loading-div" style="
         position: relative;
@@ -14,8 +14,8 @@
         </p>
     </div>
     <script>
-        document.getElementById("chart-container").style.display = "none";
-
+        // document.getElementById("chart-container").style.display = "none";
+        console.log("ajax debug")
         $.ajax({
             type: "POST",
             url: "/scrape",

@@ -173,9 +173,9 @@
 #       df.to_sql(apple_sqlite_table,
 #                 db_connection, if_exists='append')
 
-#       apple_remove_duplicate_query = text(f"""DELETE FROM '{apple_sqlite_table}'
+#       apple_remove_duplicate_query = text(f"""DELETE FROM "{apple_sqlite_table}"
 #           WHERE ROWID NOT IN (SELECT MIN(rowid)
-#           FROM '{apple_sqlite_table}' GROUP BY reviewId, country,
+#           FROM "{apple_sqlite_table}" GROUP BY reviewId, country,
 #           at, rating, review, version
 #           )""")
 #       db_connection.execute(apple_remove_duplicate_query)
