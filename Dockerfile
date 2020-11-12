@@ -4,6 +4,7 @@ FROM python:3.7
 
 # RUN echo $(ls /etc/nginx/conf.d/)
 
+COPY nginx /etc/nginx
 COPY requirements.txt flask_test config.py ./
 
 RUN apt-get install -y libpq-dev 
