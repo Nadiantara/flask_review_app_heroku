@@ -15,20 +15,20 @@ import plotly
 import plotly.graph_objects as go
 import plotly.offline as offline
 import plotly.express as px
-import pyLDAvis
-import pyLDAvis.gensim
+# import pyLDAvis
+# import pyLDAvis.gensim
 import requests
 import re
 import regex
-import seaborn as sns
-import semver
+# import seaborn as sns
+# import semver
 import spacy
-import statsmodels.api as sm
-from statsmodels.stats.outliers_influence import summary_table
-import statsmodels.api as sm
+# import statsmodels.api as sm
+# from statsmodels.stats.outliers_influence import summary_table
+# import statsmodels.api as sm
 import string
 import time
-import wordcloud
+# import wordcloud
 from bs4 import BeautifulSoup
 from datetime import datetime
 from distutils.version import LooseVersion
@@ -41,7 +41,7 @@ from plotly.subplots import make_subplots
 from plotly import tools
 from textblob import TextBlob
 from tqdm import tqdm
-from wordcloud import WordCloud
+# from wordcloud import WordCloud 
 
 from flask_test.webapp_functions.preprocessing_tools import change_google_dtype
 from flask_test import db, cache

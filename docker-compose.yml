@@ -7,12 +7,12 @@ services:
         command: gunicorn --bind :8000 flask_test:app --reload
         volumes:
           - ./flask_test:/flask_test
+          - ./nginx/templates:/etc/nginx/templates
+          - ./flask_test/static:/flask_test/static
         env_file:
           - .env
         depends_on:
           - db
-        # networks:
-        #   - app-network
 
     db:
       image: postgres:13.0-alpine # use latest official postgres version
@@ -22,8 +22,6 @@ services:
         - 5432:5432
       # volumes:
       #   - db-data:/var/lib/postgresql/data/ # persist data even if container shuts down
-      # networks:
-      #   - db-network
 
     nginx:
         image: nginx
@@ -34,18 +32,9 @@ services:
           - ./flask_test/static:/flask_test/static
         environment:
           - PORT=80
-          - SERVER_NAME=localhost
+          - SERVER_NAME=0.0.0.0
           - WEB_SERVICE=web
           - WEB_PORT=8000
         depends_on:
           - web
-        # networks:
-        #   - db-network
-        #   - app-network
-
-volumes:
-  db-data:
-
-# networks:
-#   db-network:
-#   app-network:
+          - db

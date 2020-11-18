@@ -1,11 +1,7 @@
 **__pycache__/
-.vscode
+**.vscode
 flask_test/__pycache__
 flask_test/webapp_functions/__pycache__
-**.ipynb_checkpoints
 *conda
 */*.db
 **/*.pyc
-**venv/
-.env
-db.env

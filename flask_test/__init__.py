@@ -5,7 +5,6 @@ from flask_caching import Cache
 from apscheduler.schedulers.background import BackgroundScheduler
 import atexit
 
-#configuration
 app = Flask(__name__)
 app.config.from_object('config.Config')
 db = SQLAlchemy(app)

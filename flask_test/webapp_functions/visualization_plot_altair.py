@@ -11,21 +11,21 @@ import numpy as np
 import operator
 import os  # accessing directory structure
 import pandas as pd
-import pyLDAvis
-import pyLDAvis.gensim
+# import pyLDAvis
+# import pyLDAvis.gensim
 import requests
 import re
 import regex
-import seaborn as sns
-import semver
+# import seaborn as sns
+# import semver
 import spacy
 import statistics
-import statsmodels.api as sm
-from statsmodels.stats.outliers_influence import summary_table
-import statsmodels.api as sm
+# import statsmodels.api as sm
+# from statsmodels.stats.outliers_influence import summary_table
+# import statsmodels.api as sm
 import string
 import time
-import wordcloud
+# import wordcloud
 from bs4 import BeautifulSoup
 from datetime import datetime
 from distutils.version import LooseVersion
@@ -37,7 +37,7 @@ from nltk.corpus import stopwords
 import altair as alt
 from textblob import TextBlob
 from tqdm import tqdm
-from wordcloud import WordCloud
+# from wordcloud import WordCloud 
 from scipy.ndimage import gaussian_filter1d
 from flask_test.webapp_functions.preprocessing_tools import get_by_date
 
